@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "ifx_cfg.h": "c",
+    "ifx_ssw_compilersgnuc.h": "c"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PEmicro Multilink",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${input:workspaceFolderForGDBconf}",
+      "stopAtEntry": false,
+      "cwd": "${workspaceRoot}",
+
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:\\buildtools\\NXP\\build_tools\\powerpc-eabivle-4_9\\bin\\powerpc-eabivle-gdb.exe",
+      "miDebuggerServerAddress": "127.0.0.1:7224",
+
+      // "svdPath": "${workspaceFolder}/MPC5741P.svd",
+      "stopAtConnect": false,
+      "launchCompleteCommand": "exec-continue",
+
+      "debugServerPath": "C:\\buildtools\\NXP\\gdb_server\\win32\\pegdbserver_power_console.exe",
+      "debugServerArgs": "-device=MPC5744P -startserver -singlesession -serverport=7224 -gdbmiport=6224 -interface=USBMULTILINK -speed=5000 -port=USB1",
+      "serverStarted": "All Servers Running",
+      "postRemoteConnectCommands": [
+        {
+          "text": "load ${input:workspaceFolderForGDBconf}"
+        }
+      ]
+    },
+    {
+      "name": "Launch Multilink",
+      "type": "gdbtarget",
+      "request": "attach",
+      "program": "C:\\NXP\\Hello_World\\Debug\\Hello_World.elf",
+
+      "cwd": "${workspaceRoot}",
+
+      "preLaunchTask": "Launch gdb server",
+      "gdb": "C:\\NXP\\S32DS_Power_v2.1\\S32DS\\build_tools\\powerpc-eabivle-4_9\\bin\\powerpc-eabivle-gdb.exe",
+      "target": {
+        "type": "remote",
+        "host": "localhost",
+        "port": "7224"
+      },
+
+      "definitionPath": "${workspaceFolder}/MPC5741P.svd",
+
+      "preRunCommands": [
+          "load C:/NXP/Hello_World/Debug/Hello_World.elf"
+      ],
+      "customResetCommands": [
+        "interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt","interrupt",
+        "monitor reset",
+        "b main",
+        "continue"
+      ]
+    }
+  ],
+    "inputs": [
+    {
+        "id": "workspaceFolderForGDBconf",
+        "type": "command",
+        "command": "extension.commandvariable.transform",
+        "args": {
+            "text": "${command:cmake.launchTargetPath}",
+            "find": "\\\\",
+            "replace": "/",
+            "flags": "g"
+        }
+    }]
+}

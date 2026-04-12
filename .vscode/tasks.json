@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Launch gdb server",
+      "command": "C:\\NXP\\com.pemicro.debug.gdbjtag.ppc_2.0.2.202005132054\\win32\\pegdbserver_power_console",
+      "type": "shell",
+      "args": [ "-device=MPC5744P",
+                "-startserver",
+                "-singlesession ",
+                "-serverport=7224", 
+                "-gdbmiport=6224", 
+                "-interface=USBMULTILINK", 
+                "-speed=5000", 
+                "-port="],
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "PEmicro GDB Launch Failure",
+          "file": 1,
+          "location": 1,
+          "severity": 4
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "P&E GDB Server for Power devices",
+          "endsPattern": "All Servers Running"
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    },
+    {
+      "label": "flash",
+      "type": "shell",
+      "command": "C:\\NXP\\powerpc-eabivle-4_9\\bin\\powerpc-eabivle-gdb.exe --command=flash.gdb \"C:/NXP/Hello_World/Debug/Hello_World.elf\"",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [{
+    "id": "elf_list",
+    "description": "Choose the elf to flash",
+    "type": "pickString",
+    "options": [
+      {
+        "label": "blinky",
+        "value": "${workspaceFolder}/build/blinky/Blinky_LED.hex"
+      },
+      {
+        "label": "multicore",
+        "value": "${workspaceFolder}/build/multicore/multicore.elf"
+      }
+    ]
+  }]
+}
