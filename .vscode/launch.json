@@ -10,14 +10,14 @@
       "cwd": "${workspaceRoot}",
 
       "MIMode": "gdb",
-      "miDebuggerPath": "C:\\buildtools\\NXP\\build_tools\\powerpc-eabivle-4_9\\bin\\powerpc-eabivle-gdb.exe",
+      "miDebuggerPath": "powerpc-eabivle-gdb",
       "miDebuggerServerAddress": "127.0.0.1:7224",
 
       // "svdPath": "${workspaceFolder}/MPC5741P.svd",
       "stopAtConnect": false,
       "launchCompleteCommand": "exec-continue",
 
-      "debugServerPath": "C:\\buildtools\\NXP\\gdb_server\\win32\\pegdbserver_power_console.exe",
+      "debugServerPath": "pegdbserver_power_console",
       "debugServerArgs": "-device=MPC5744P -startserver -singlesession -serverport=7224 -gdbmiport=6224 -interface=USBMULTILINK -speed=5000 -port=USB1",
       "serverStarted": "All Servers Running",
       "postRemoteConnectCommands": [
@@ -35,7 +35,7 @@
       "cwd": "${workspaceRoot}",
 
       "preLaunchTask": "Launch gdb server",
-      "gdb": "C:\\NXP\\S32DS_Power_v2.1\\S32DS\\build_tools\\powerpc-eabivle-4_9\\bin\\powerpc-eabivle-gdb.exe",
+      "gdb": "powerpc-eabivle-gdb",
       "target": {
         "type": "remote",
         "host": "localhost",

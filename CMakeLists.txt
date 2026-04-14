@@ -4,12 +4,20 @@ cmake_minimum_required(VERSION 3.22)
 # User is free to modify the file as much as necessary
 #
 
-#list(APPEND CMAKE_MODULE_PATH "C:/Users/user1/Downloads/CmakeTestProject/cmake")
 list(APPEND CMAKE_MODULE_PATH "{{sr:cmake_path}}")
 message("Build CMAKE_MODULE_PATH: " ${CMAKE_MODULE_PATH})
 include("cmake/powerpc-eabivle.cmake")
-message("Build CMAKE_MODULE_PATH: " ${CMAKE_MODULE_PATH})
-message("asm compiler:" ${CMAKE_ASM_COMPILER})
+
+find_program(PPC_GCC powerpc-eabivle-gcc)
+message(${PPC_GCC})
+if(NOT PPC_GCC)
+    message(FATAL_ERROR "Cannot find powerpc-eabivle-gcc compiler. Specify path to powerpc-eabivle-gcc.exe in PATH system variable.")
+endif()
+
+# Get the folder for the C compiler
+get_filename_component(COMPILER_DIR "${PPC_GCC}" DIRECTORY)
+
+set(E200_root ${COMPILER_DIR}/../../e200_ewl2)
 
 # Core project settings
 project(cmake_mpc57_test)
@@ -150,7 +158,7 @@ target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
     --gc-sections
     -mcpu=e200z4
     -mhard-float
-    --sysroot=C:/buildtools/NXP/build_tools/e200_ewl2
+    --sysroot=${E200_root}
 )
 
 # Execute post-build to print size, generate hex and bin
